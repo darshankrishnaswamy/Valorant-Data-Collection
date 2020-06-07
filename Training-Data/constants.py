@@ -1,0 +1,4 @@
+HAVEN_LOCATIONS = {"A": (70, 340), "B": (500, 340), "C": (880, 340)}
+SPLIT_LOCATIONS = {"A": (70, 270), "B": (840, 320)}
+ASCENT_LOCATIONS = {"A": (140, 320), "B": (800, 280)}
+BIND_LOCATIONS = {"A": (320, 720), "B": (270, 220)}
