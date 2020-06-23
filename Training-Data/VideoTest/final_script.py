@@ -1,3 +1,5 @@
+from time import sleep
+
 import numpy as np
 import cv2
 import pyautogui
@@ -42,6 +44,6 @@ while success:
     if cos_distance(imga, imgb) > 0.95:
         print(cos_distance(imga, imgb))
         cv2.imwrite('./data/frame%d.jpg' % count, final_picture)
+        sleep(1)
         print('successfully written frame')
-    count += 1
-
+        count += 1
