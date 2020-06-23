@@ -57,7 +57,6 @@ while success:
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
-    count = 1
     if cos_distance(imga, imgb) > 0.95:
         if cos_distance(imga_buy, imgb_buy) >0.95 or cos_distance(a_mat, b_mat) > 0.95 or cos_distance(a_sw, b_sw)>0.95:
             print(cos_distance(imga, imgb))
