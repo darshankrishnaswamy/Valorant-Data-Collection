@@ -70,7 +70,7 @@ while success:
                 cos_distance(a_sw, b_sw) > 0.92 or \
                 cos_distance(a_end, b_end) > 0.92:
             print(cos_distance(imga, imgb))
-            cv2.imwrite('./data/fullgameJune24-v2/round%d.jpg' % count, final_picture)
+            cv2.imwrite('./data/fullgameJune24-v3/round%d.jpg' % count, final_picture)
             print('successfully written frame')
             sleep(2)
             count += 1
