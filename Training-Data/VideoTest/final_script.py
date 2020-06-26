@@ -7,10 +7,7 @@ import pyautogui
 vidcap = cv2.VideoCapture('ValVideo.mp4')
 count = 0
 success = True
-is_win = False
 fps = int(vidcap.get(cv2.CAP_PROP_FPS))
-
-name = 'data/round0.jpg'
 
 pog = cv2.imread("000_original_1080.jpg")
 img_binary = cv2.threshold(pog, 230, 255, cv2.THRESH_BINARY)[1]
@@ -29,6 +26,12 @@ switchpog = cv2.imread("last_round_b4_swap.jpg")
 img_binary_switch = cv2.threshold(switchpog, 230, 255, cv2.THRESH_BINARY)[1]
 
 a_sw = img_binary_switch[185:215, 670:1240] / 255
+
+endpog = cv2.imread("end.jpg")
+img_binary_end = cv2.threshold(endpog, 230, 255, cv2.THRESH_BINARY)[1]
+
+a_end = img_binary_end[165:230, 830:1070] / 255
+
 
 def cos_distance(a, b):
     if np.count_nonzero(a) == 0:
@@ -55,32 +58,19 @@ while success:
     imgb_buy = img_binary1[185:230, 820:1100] / 255
     b_sw = img_binary1[185:215, 670:1240] / 255
     b_mat = img_binary1[185:215, 815:1110] / 255
+    b_end = img_binary1[165:230, 830:1070] / 255
     # cv2.imshow("imga",imga)
     # cv2.imshow("imgb", imgb)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
-
-
-
-
-
-    if cos_distance(imga, imgb) > 0.95:
-        if cos_distance(imga_buy, imgb_buy) >0.95 or cos_distance(a_mat, b_mat) > 0.95 or cos_distance(a_sw, b_sw)>0.95:
+    if cos_distance(imga, imgb) > 0.92:
+        if cos_distance(imga_buy, imgb_buy) > 0.92 or \
+                cos_distance(a_mat, b_mat) > 0.92 or \
+                cos_distance(a_sw, b_sw) > 0.92 or \
+                cos_distance(a_end, b_end) > 0.92:
             print(cos_distance(imga, imgb))
-            name = './data/round%d.jpg' % count
-            cv2.imwrite(name, final_picture)
-            sleep(1)
+            cv2.imwrite('./data/fullgameJune24-v3/round%d.jpg' % count, final_picture)
             print('successfully written frame')
+            sleep(2)
             count += 1
-
-            # team_score_1 = cv2.threshold(final_picture, 230, 255, cv2.THRESH_BINARY)[1][40:60, 810:835]
-            # team2pog = cv2.imread(name)
-            # team_score_2 = cv2.threshold(team2pog, 230, 255, cv2.THRESH_BINARY)[1][40:60, 810:835]
-            #
-            # if cos_distance(team_score_1, team_score_2) < 0.9:
-            #     print('won')
-            # else:
-            #     print('lost')
-
-
