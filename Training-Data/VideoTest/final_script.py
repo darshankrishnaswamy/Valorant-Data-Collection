@@ -7,7 +7,10 @@ import pyautogui
 vidcap = cv2.VideoCapture('ValVideo.mp4')
 count = 0
 success = True
+is_win = False
 fps = int(vidcap.get(cv2.CAP_PROP_FPS))
+
+name = 'data/round0.jpg'
 
 pog = cv2.imread("000_original_1080.jpg")
 img_binary = cv2.threshold(pog, 230, 255, cv2.THRESH_BINARY)[1]
@@ -57,10 +60,27 @@ while success:
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
+
+
+
+
+
     if cos_distance(imga, imgb) > 0.95:
         if cos_distance(imga_buy, imgb_buy) >0.95 or cos_distance(a_mat, b_mat) > 0.95 or cos_distance(a_sw, b_sw)>0.95:
             print(cos_distance(imga, imgb))
-            cv2.imwrite('./data/round%d.jpg' % count, final_picture)
+            name = './data/round%d.jpg' % count
+            cv2.imwrite(name, final_picture)
             sleep(1)
             print('successfully written frame')
             count += 1
+
+            # team_score_1 = cv2.threshold(final_picture, 230, 255, cv2.THRESH_BINARY)[1][40:60, 810:835]
+            # team2pog = cv2.imread(name)
+            # team_score_2 = cv2.threshold(team2pog, 230, 255, cv2.THRESH_BINARY)[1][40:60, 810:835]
+            #
+            # if cos_distance(team_score_1, team_score_2) < 0.9:
+            #     print('won')
+            # else:
+            #     print('lost')
+
+
