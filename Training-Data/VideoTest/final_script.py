@@ -9,6 +9,10 @@ count = 0
 success = True
 fps = int(vidcap.get(cv2.CAP_PROP_FPS))
 
+signal = True
+
+count = 1
+
 pog = cv2.imread("000_original_1080.jpg")
 img_binary = cv2.threshold(pog, 230, 255, cv2.THRESH_BINARY)[1]
 
@@ -59,18 +63,29 @@ while success:
     b_sw = img_binary1[185:215, 670:1240] / 255
     b_mat = img_binary1[185:215, 815:1110] / 255
     b_end = img_binary1[165:230, 830:1070] / 255
-    # cv2.imshow("imga",imga)
-    # cv2.imshow("imgb", imgb)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
 
+    name = './data/fullgameJune25/round' + str(count) + '.jpg'
     if cos_distance(imga, imgb) > 0.92:
         if cos_distance(imga_buy, imgb_buy) > 0.92 or \
                 cos_distance(a_mat, b_mat) > 0.92 or \
                 cos_distance(a_sw, b_sw) > 0.92 or \
                 cos_distance(a_end, b_end) > 0.92:
             print(cos_distance(imga, imgb))
-            cv2.imwrite('./data/fullgameJune24-v3/round%d.jpg' % count, final_picture)
+            cv2.imwrite(name, final_picture)
             print('successfully written frame')
             sleep(2)
             count += 1
+            signal = False
+
+    if count > 2 and signal == False:
+        name_alt = './data/fullgameJune25/round' + str(count-2) + '.jpg'
+        pogbehind = cv2.imread(name_alt)
+        behind = cv2.threshold(pogbehind, 230, 255, cv2.THRESH_BINARY)[1][35:65, 810:835]/255
+        current = cv2.threshold(final_picture, 230, 255, cv2.THRESH_BINARY)[1][35:65, 810:835]/255
+        if cos_distance(current, behind) < 0.9:
+            print('won')
+        else:
+            print('lost')
+        print(cos_distance(current, behind))
+        signal = True
+
